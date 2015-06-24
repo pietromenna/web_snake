@@ -10,9 +10,9 @@ var Point = function(x, y) {
 
 function Game(){
     this.snake = [new Point(30,30),new Point(31,30),new Point(32,30), new Point(33,30) ];
-    var direction = 'LEFT';
-    var food = [];
-    var score = 0;
+    this.direction = 'LEFT';
+    this.food = [];
+    this.score = 0;
 }
 
 function clearCanvas() {
@@ -37,9 +37,34 @@ function drawPoint(point, color) {
     context.fillRect(x_offset,y_offset,x_size,y_size);
 }
 
+Game.prototype.createFutureHeadPoint = function(head) {
+    switch(this.direction){
+        case 'LEFT':
+            if ((head.x - 1) >= 0)
+            {
+                return new Point((head.x - 1), head.y)
+            }
+            break;
+        };
+};
+
+Game.prototype.updateGame = function() {
+    //Movement
+    var newSnake = new Array();
+    var futureHead = this.createFutureHeadPoint(this.snake[0]);
+    newSnake.push(futureHead);
+    for(var i=1; i<this.snake.length;i++){
+        newSnake.push(this.snake[i-1]);
+    }
+    this.snake = newSnake;
+};
+
+
 Game.prototype.tick = function() {
+    //Update the Game
+    this.updateGame();
+    //Draw stuff
     clearCanvas();
-    // Draw the snake
     for (var i=0; i < this.snake.length; i++){
         drawPoint(this.snake[i],"green");
     }

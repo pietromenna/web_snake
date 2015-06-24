@@ -6,7 +6,8 @@
 <body>
     <h1>Web Snake</h1>
     <canvas id="canvas" width="600" height="600">Your browser does not support Canvas! Please download Google Chrome</canvas>
-    <script>clearCanvas();</script>
-    <script>drawPoint({x: 300, y:300}, "green");</script>
+    <script>
+    var game = new Game();
+    game.tick();</script>
 </body>
 </html>

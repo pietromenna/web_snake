@@ -10,7 +10,7 @@ var Point = function(x, y) {
 
 function Game(){
     this.snake = [new Point(30,30),new Point(31,30),new Point(32,30), new Point(33,30) ];
-    this.direction = 'LEFT';
+    this.direction = 'UP';
     this.food = [];
     this.score = 0;
 }
@@ -45,11 +45,31 @@ Game.prototype.createFutureHeadPoint = function(head) {
                 return new Point((head.x - 1), head.y)
             }
             break;
+        case 'RIGHT':
+            if ((head.x + 1) <= 60)
+            {
+                return new Point((head.x + 1), head.y)
+            }
+            break;
+        case 'UP':
+            if ((head.y - 1) >= 0)
+            {
+                return new Point(head.x, head.y - 1)
+            }
+            break;
+        case 'DOWN':
+            if ((head.y + 1) <= 60)
+            {
+                return new Point(head.x, head.y + 1)
+            }
+            break;
         };
 };
 
 Game.prototype.updateGame = function() {
-    //Movement
+    //Listen for key strokes
+
+    //Snake Movements TODO: own function
     var newSnake = new Array();
     var futureHead = this.createFutureHeadPoint(this.snake[0]);
     newSnake.push(futureHead);
@@ -57,6 +77,7 @@ Game.prototype.updateGame = function() {
         newSnake.push(this.snake[i-1]);
     }
     this.snake = newSnake;
+    //Check if ete anything
 };
 
 

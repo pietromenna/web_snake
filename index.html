@@ -7,15 +7,10 @@
     <h1>Web Snake</h1>
     <canvas id="canvas" width="600" height="600">Your browser does not support Canvas! Please download Google Chrome</canvas>
     <script>
-    var game = new Game();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();
-    game.tick();</script>
+        var game = game || new Game();
+        setInterval(function() {
+             game.tick();
+             }, 1000);
+</script>
 </body>
 </html>

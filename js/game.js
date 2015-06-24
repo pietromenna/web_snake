@@ -95,7 +95,6 @@ Game.prototype.updateGame = function() {
     }
 };
 
-
 Game.prototype.tick = function() {
     //Update the Game
     this.updateGame();
@@ -110,3 +109,24 @@ Game.prototype.tick = function() {
         drawPoint(this.food[i],"orange");
     }
 };
+
+Game.prototype.setDirection = function(direction) {
+    this.direction = direction;
+};
+
+window.addEventListener('keydown', function(event) {
+  switch (event.keyCode) {
+    case 37:
+      game.setDirection('LEFT');
+    break;
+    case 38: 
+      game.setDirection('UP');
+    break;
+    case 39:
+      game.setDirection('RIGHT');
+    break;
+    case 40:
+      game.setDirection('DOWN');
+    break;
+  }
+}, false);

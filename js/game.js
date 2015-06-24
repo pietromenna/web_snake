@@ -72,21 +72,24 @@ Game.prototype.createFutureHeadPoint = function(head) {
 };
 
 Game.prototype.updateGame = function() {
+    if (this.game_running){
     //Snake Movements TODO: own function
-    var newSnake = new Array();
-    var futureHead = this.createFutureHeadPoint(this.snake[0]);
-    newSnake.push(futureHead);
-    for(var i=1; i<this.snake.length;i++){
-        newSnake.push(this.snake[i-1]);
-    }
-    this.snake = newSnake;
-    //Check if ete anything
-    for (var i=0;i<this.snake.length;i++){
-        for(var j=0;j<this.food.length;j++){
-            if (this.snake[i].x === this.food[j].x &&
-                this.snake[i].y === this.food[j].y ) {
-                this.score += 20;
-                alert("Eating!");
+        var newSnake = new Array();
+        var futureHead = this.createFutureHeadPoint(this.snake[0]);
+        newSnake.push(futureHead);
+        for(var i=1; i<this.snake.length;i++){
+            newSnake.push(this.snake[i-1]);
+        }
+        this.snake = newSnake;
+        //Check if ete anything
+        for (var i=0;i<this.snake.length;i++){
+            for(var j=0;j<this.food.length;j++){
+                if (this.snake[i].x === this.food[j].x &&
+                    this.snake[i].y === this.food[j].y ) {
+                    this.score += 20;
+                    alert("Eating!");
+                    this.food.splice(j,1);
+                }
             }
         }
     }

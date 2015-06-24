@@ -10,9 +10,10 @@ var Point = function(x, y) {
 
 function Game(){
     this.snake = [new Point(30,30),new Point(31,30),new Point(32,30), new Point(33,30) ];
-    this.direction = 'UP';
-    this.food = [];
+    this.direction = 'LEFT';
+    this.food = [new Point(10,30)];
     this.score = 0;
+    this.game_running = true;
 }
 
 function clearCanvas() {
@@ -43,6 +44,10 @@ Game.prototype.createFutureHeadPoint = function(head) {
             if ((head.x - 1) >= 0)
             {
                 return new Point((head.x - 1), head.y)
+            } else
+            {
+                alert("Snake died!");
+                this.game_running = false;
             }
             break;
         case 'RIGHT':
@@ -67,8 +72,6 @@ Game.prototype.createFutureHeadPoint = function(head) {
 };
 
 Game.prototype.updateGame = function() {
-    //Listen for key strokes
-
     //Snake Movements TODO: own function
     var newSnake = new Array();
     var futureHead = this.createFutureHeadPoint(this.snake[0]);
@@ -78,6 +81,15 @@ Game.prototype.updateGame = function() {
     }
     this.snake = newSnake;
     //Check if ete anything
+    for (var i=0;i<this.snake.length;i++){
+        for(var j=0;j<this.food.length;j++){
+            if (this.snake[i].x === this.food[j].x &&
+                this.snake[i].y === this.food[j].y ) {
+                this.score += 20;
+                alert("Eating!");
+            }
+        }
+    }
 };
 
 
@@ -86,7 +98,12 @@ Game.prototype.tick = function() {
     this.updateGame();
     //Draw stuff
     clearCanvas();
+    //Draw Snake items
     for (var i=0; i < this.snake.length; i++){
         drawPoint(this.snake[i],"green");
+    }
+    //Draw the snake food
+    for (var i=0; i < this.food.length; i++){
+        drawPoint(this.food[i],"orange");
     }
 };

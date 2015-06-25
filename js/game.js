@@ -1,5 +1,3 @@
-// Any drawable point
-
 var Point = function(x, y) {
     if (x >= 0 && x <= 60 && y >= 0 && y <= 60)
         return {x, y};
@@ -68,6 +66,18 @@ Game.prototype.createNewFood = function() {
     this.food.push(new Point(newFoodX,newFoodY));
 }
 
+Game.prototype.collisionsWithBody = function(futureHead) {
+    if (futureHead != undefined) {
+        for (var i =0; i< this.snake.length; i++){
+            if (this.snake[i].x === futureHead.x &&
+                this.snake[i].y === futureHead.y){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 Game.prototype.updateGame = function() {
     if (this.current_tick == 0) this.createNewFood();
     var newSnake = new Array();
@@ -84,6 +94,10 @@ Game.prototype.updateGame = function() {
         }
     }
     var futureHead = this.createFutureHeadPoint(this.snake[0]);
+    if (this.collisionsWithBody(futureHead)) {
+        this.game_running = false;
+        return;
+    }
     newSnake.push(futureHead);
     for(var i=1; i<this.snake.length;i++){
         newSnake.push(this.snake[i-1]);

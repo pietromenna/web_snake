@@ -5,12 +5,13 @@
 </head>
 <body>
     <h1>Web Snake</h1>
+    <div id="score"></div>
     <canvas id="canvas" width="600" height="600">Your browser does not support Canvas! Please download Google Chrome</canvas>
     <script>
         var game = game || new Game();
         setInterval(function() {
              game.tick();
-             }, 1000);
+             }, 500);
 </script>
 </body>
 </html>

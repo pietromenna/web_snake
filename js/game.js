@@ -69,54 +69,57 @@ Game.prototype.createNewFood = function() {
 }
 
 Game.prototype.updateGame = function() {
-    if (this.game_running){
-        if (this.current_tick == 0) this.createNewFood();
-        var newSnake = new Array();
-        var eating = false;
-        //Check if ete anything
-        for (var i=0;i<this.snake.length;i++){
-            for(var j=0;j<this.food.length;j++){
-                if (this.snake[i].x === this.food[j].x &&
-                    this.snake[i].y === this.food[j].y ) {
-                    this.score += 20;
-                    eating = true;
-                    this.food.splice(j,1);
-                }
+    if (this.current_tick == 0) this.createNewFood();
+    var newSnake = new Array();
+    var eating = false;
+    //Check if ete anything
+    for (var i=0;i<this.snake.length;i++){
+        for(var j=0;j<this.food.length;j++){
+            if (this.snake[i].x === this.food[j].x &&
+                this.snake[i].y === this.food[j].y ) {
+                this.score += 20;
+                eating = true;
+                this.food.splice(j,1);
             }
         }
-        var futureHead = this.createFutureHeadPoint(this.snake[0]);
-        newSnake.push(futureHead);
-        for(var i=1; i<this.snake.length;i++){
-            newSnake.push(this.snake[i-1]);
-        }
-        if (eating){
-            newSnake.push(this.snake[this.snake.length-1]);
-        }
-        this.snake = newSnake;
     }
+    var futureHead = this.createFutureHeadPoint(this.snake[0]);
+    newSnake.push(futureHead);
+    for(var i=1; i<this.snake.length;i++){
+        newSnake.push(this.snake[i-1]);
+    }
+    if (eating){
+        newSnake.push(this.snake[this.snake.length-1]);
+    }
+    this.snake = newSnake;
 };
 
 Game.prototype.tick = function() {
-    //Update the Game
-    this.updateGame();
-    //Draw stuff
-    clearCanvas();
-    //Draw Snake items
-    for (var i=0; i < this.snake.length; i++){
-        drawPoint(this.snake[i],"green");
-    }
-    //Draw the snake food
-    for (var i=0; i < this.food.length; i++){
-        drawPoint(this.food[i],"orange");
-    }
+    if (this.game_running){
+        //Update the Game
+        this.updateGame();
+        //Draw stuff
+        if (this.game_running == false) {
+            return;
+        }
+        clearCanvas();
+        //Draw Snake items
+        for (var i=0; i < this.snake.length; i++){
+            drawPoint(this.snake[i],"green");
+        }
+        //Draw the snake food
+        for (var i=0; i < this.food.length; i++){
+            drawPoint(this.food[i],"orange");
+        }
 
-    //Print Score
-    var printScore = "<p>Current score:" + parseInt(this.score) + "</p>";
-    document.getElementById("score").innerHTML = printScore;
+        //Print Score
+        var printScore = "<p>Current score:" + parseInt(this.score) + "</p>";
+        document.getElementById("score").innerHTML = printScore;
 
-    //update current tick
-    this.current_tick += 1;
-    this.current_tick = this.current_tick % 20;
+        //update current tick
+        this.current_tick += 1;
+        this.current_tick = this.current_tick % 20;
+    }
 };
 
 Game.prototype.setDirection = function(direction) {

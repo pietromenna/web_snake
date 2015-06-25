@@ -63,8 +63,8 @@ Game.prototype.createFutureHeadPoint = function(head) {
 };
 
 Game.prototype.createNewFood = function() {
-    var newFoodX = Math.random() * 60;
-    var newFoodY = Math.random() * 60;
+    var newFoodX = Math.ceil(Math.random() * 60);
+    var newFoodY = Math.ceil(Math.random() * 60);
     this.food.push(new Point(newFoodX,newFoodY));
 }
 

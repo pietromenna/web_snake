@@ -39,36 +39,26 @@ function drawPoint(point, color) {
 }
 
 Game.prototype.createFutureHeadPoint = function(head) {
+    var possibleMovement = false;
     switch(this.direction){
         case 'LEFT':
             if ((head.x - 1) >= 0)
-            {
                 return new Point((head.x - 1), head.y)
-            } else
-            {
-                alert("Snake died!");
-                this.game_running = false;
-            }
             break;
         case 'RIGHT':
             if ((head.x + 1) <= 60)
-            {
                 return new Point((head.x + 1), head.y)
-            }
             break;
         case 'UP':
             if ((head.y - 1) >= 0)
-            {
                 return new Point(head.x, head.y - 1)
-            }
             break;
         case 'DOWN':
             if ((head.y + 1) <= 60)
-            {
                 return new Point(head.x, head.y + 1)
-            }
             break;
         };
+        this.game_running = false;
 };
 
 Game.prototype.updateGame = function() {

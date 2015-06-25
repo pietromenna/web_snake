@@ -14,6 +14,7 @@ function Game(){
     this.food = [new Point(10,30)];
     this.score = 0;
     this.game_running = true;
+    this.current_tick = 0;
 }
 
 function clearCanvas() {
@@ -61,9 +62,15 @@ Game.prototype.createFutureHeadPoint = function(head) {
         this.game_running = false;
 };
 
+Game.prototype.createNewFood = function() {
+    var newFoodX = Math.random() * 60;
+    var newFoodY = Math.random() * 60;
+    this.food.push(new Point(newFoodX,newFoodY));
+}
+
 Game.prototype.updateGame = function() {
     if (this.game_running){
-    //Snake Movements TODO: own function
+        if (this.current_tick == 0) this.createNewFood();
         var newSnake = new Array();
         var eating = false;
         //Check if ete anything
@@ -106,6 +113,10 @@ Game.prototype.tick = function() {
     //Print Score
     var printScore = "<p>Current score:" + parseInt(this.score) + "</p>";
     document.getElementById("score").innerHTML = printScore;
+
+    //update current tick
+    this.current_tick += 1;
+    this.current_tick = this.current_tick % 20;
 };
 
 Game.prototype.setDirection = function(direction) {

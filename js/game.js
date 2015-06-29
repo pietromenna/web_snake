@@ -1,6 +1,6 @@
 var Point = function(x, y) {
     if (x >= 0 && x <= 60 && y >= 0 && y <= 60)
-        return {x, y};
+        return {x: x, y: y};
     else {
         throw 'Invalid point';
     }

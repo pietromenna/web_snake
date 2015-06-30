@@ -79,7 +79,7 @@ Game.prototype.collisionsWithBody = function(futureHead) {
 }
 
 Game.prototype.updateGame = function() {
-    if (this.current_tick == 0) this.createNewFood();
+    if (this.current_tick === 0) this.createNewFood();
     var newSnake = new Array();
     var eating = false;
     //Check if ete anything
@@ -143,16 +143,20 @@ Game.prototype.setDirection = function(direction) {
 window.addEventListener('keydown', function(event) {
   switch (event.keyCode) {
     case 37:
-      game.setDirection('LEFT');
+      if (game.direction != 'RIGHT')
+        game.setDirection('LEFT');
     break;
-    case 38: 
-      game.setDirection('UP');
+    case 38:
+      if (game.direction != 'DOWN')
+        game.setDirection('UP');
     break;
     case 39:
-      game.setDirection('RIGHT');
+      if (game.direction != 'LEFT')
+        game.setDirection('RIGHT');
     break;
     case 40:
-      game.setDirection('DOWN');
+      if (game.direction != 'UP')
+        game.setDirection('DOWN');
     break;
   }
 }, false);
